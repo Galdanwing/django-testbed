@@ -4,5 +4,5 @@ from django.test import TestCase
 
 class DatabaseTestCase(TestCase):
     def test_query_output(self):
-        from testApp.models import ExampleModel
+        from weirdFilterOrder.models import ExampleModel
         self.assertEqual(ExampleModel.objects.all().query, "koekoek")

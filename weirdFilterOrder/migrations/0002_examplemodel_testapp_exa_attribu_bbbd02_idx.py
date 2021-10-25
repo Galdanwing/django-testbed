@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('testApp', '0001_initial'),
+        ('weirdFilterOrder', '0001_initial'),
     ]
 
     operations = [
