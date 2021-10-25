@@ -5,4 +5,5 @@ from django.test import TestCase
 class DatabaseTestCase(TestCase):
     def test_query_output(self):
         from weirdFilterOrder.models import ExampleModel
-        self.assertEqual(ExampleModel.objects.all().query, "koekoek")
+        self.assertFalse(str(ExampleModel.objects.all().query).endswith("I should be third)"))
+        self.assertTrue(str(ExampleModel.objects.all().query).endswith("I should be first)"))
