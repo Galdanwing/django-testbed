@@ -1,5 +1,9 @@
 # django-testbed
-Repo where I test django functionality that is not according to spec to see if they are bugs or not.
+Repo where I test stuff, mostly for personal use :)
 
-## Tests
-`./mange.py test`
+## Install
+1. Install poetry
+2. poetry install
+
+## Test
+poetry run pytest

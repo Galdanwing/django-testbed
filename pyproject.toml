@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "djangoproject"
+version = "0.1.0"
+description = "Django testbed"
+authors = ["Antoine van der Horst"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+pytest = "^6.2.5"
+pytest-django = "^4.4.0"
+rich = "^10.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "djangoProject.settings"
