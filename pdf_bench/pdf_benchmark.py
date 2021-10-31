@@ -6,6 +6,7 @@ from PyPDF2.utils import PdfReadError
 from django.utils.timezone import now
 from pdfminer.high_level import extract_text
 from tika import parser
+import pdftotext
 
 from timeit import timeit
 
@@ -61,15 +62,25 @@ def check_speed_pypdf(amount: int, file: Path):
     return now() - start_time
 
 
+def check_speed_pdftotext(amount: int, file: Path):
+    start_time = now()
+    for i in range(0, amount):
+        with open(file, 'rb') as pdf:
+            for page in pdftotext.PDF(pdf):
+                _ = page
+    return now() - start_time
+
+
 def check_speed_of_extracting_all_text():
-    files = [Path("pdf_bench/pdf_files/sample.pdf"), Path("pdf_bench/pdf_files/intro-linux.pdf")]
+    files = [Path("pdf_bench/pdf_files/sample-small-text-only.pdf"), Path("pdf_bench/pdf_files/intro-linux.pdf"),
+             Path("pdf_bench/pdf_files/pdf_with_svg_image.pdf")]
     amount = 5
     res = {}
     for file in files:
-        # try:
-        #     pdfplumber_speed = (check_speed_pdfplumber(amount, file).total_seconds() / amount)
-        # except Exception:
-        #     pdfplumber_speed = "Error"
+        try:
+            pdfplumber_speed = (check_speed_pdfplumber(amount, file).total_seconds() / amount)
+        except Exception:
+            pdfplumber_speed = "Error"
         try:
             tika_speed = (check_speed_tika(amount, file).total_seconds() / amount)
         except Exception:
@@ -82,11 +93,17 @@ def check_speed_of_extracting_all_text():
             pdfminer_speed = (check_speed_pdfminer(amount, file).total_seconds() / amount)
         except Exception:
             pdfminer_speed = "Error"
+        try:
+            pdftotext_speed = (check_speed_pdftotext(amount, file).total_seconds() / amount)
+        except Exception:
+            pdftotext_speed = "Error"
+
         res[file.stem] = {
             "pdfminer": pdfminer_speed,
-            # "pdfplumber": pdfplumber_speed,
+            "pdfplumber": pdfplumber_speed,
+            "pypdf": pypdf_speed,
             "tika": tika_speed,
-            "pypdf": pypdf_speed
+            "pdftotext": pdftotext_speed,
         }
     return res
 
