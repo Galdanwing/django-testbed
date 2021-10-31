@@ -476,7 +476,7 @@ test = ["pytest (>=5.3.5)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "0a7c9b6c46bab9d1f71c428b549838b7da46eb2882ed857850e69e8eff079d64"
+content-hash = "29af3465bf88f2ade0fc580a3d2a7c92f473647fb2ca607bc77d267f0aee3dd7"
 
 [metadata.files]
 asgiref = [

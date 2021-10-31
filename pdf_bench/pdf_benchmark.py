@@ -4,6 +4,7 @@ import pdfplumber
 from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
 from django.utils.timezone import now
+from pdfminer.high_level import extract_text
 from tika import parser
 
 from timeit import timeit
@@ -34,6 +35,14 @@ def check_speed_pdfplumber(amount: int, file: Path):
     return now() - start_time
 
 
+def check_speed_pdfminer(amount: int, file: Path):
+    start_time = now()
+    for i in range(0, amount):
+        with open(file, 'rb') as pdf:
+            _ = extract_text(pdf)
+    return now() - start_time
+
+
 def check_speed_tika(amount: int, file: Path):
     start_time = now()
     for i in range(0, amount):
@@ -54,13 +63,13 @@ def check_speed_pypdf(amount: int, file: Path):
 
 def check_speed_of_extracting_all_text():
     files = [Path("pdf_bench/pdf_files/sample.pdf"), Path("pdf_bench/pdf_files/intro-linux.pdf")]
-    amount = 100
+    amount = 5
     res = {}
     for file in files:
-        try:
-            pdfplumber_speed = (check_speed_pdfplumber(amount, file).total_seconds() / amount)
-        except Exception:
-            pdfplumber_speed = "Error"
+        # try:
+        #     pdfplumber_speed = (check_speed_pdfplumber(amount, file).total_seconds() / amount)
+        # except Exception:
+        #     pdfplumber_speed = "Error"
         try:
             tika_speed = (check_speed_tika(amount, file).total_seconds() / amount)
         except Exception:
@@ -69,8 +78,13 @@ def check_speed_of_extracting_all_text():
             pypdf_speed = (check_speed_pypdf(amount, file).total_seconds() / amount)
         except Exception:
             pypdf_speed = "Error"
+        try:
+            pdfminer_speed = (check_speed_pdfminer(amount, file).total_seconds() / amount)
+        except Exception:
+            pdfminer_speed = "Error"
         res[file.stem] = {
-            "pdfplumber": pdfplumber_speed,
+            "pdfminer": pdfminer_speed,
+            # "pdfplumber": pdfplumber_speed,
             "tika": tika_speed,
             "pypdf": pypdf_speed
         }
