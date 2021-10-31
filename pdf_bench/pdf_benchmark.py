@@ -39,7 +39,7 @@ def check_speed_pdfplumber(amount: int, file: Path):
 def check_speed_pdfminer(amount: int, file: Path):
     start_time = now()
     for i in range(0, amount):
-        with open(file, 'rb') as pdf:
+        with open(file, "rb") as pdf:
             _ = extract_text(pdf)
     return now() - start_time
 
@@ -65,36 +65,43 @@ def check_speed_pypdf(amount: int, file: Path):
 def check_speed_pdftotext(amount: int, file: Path):
     start_time = now()
     for i in range(0, amount):
-        with open(file, 'rb') as pdf:
+        with open(file, "rb") as pdf:
             for page in pdftotext.PDF(pdf):
                 _ = page
     return now() - start_time
 
 
 def check_speed_of_extracting_all_text():
-    files = [Path("pdf_bench/pdf_files/sample-small-text-only.pdf"), Path("pdf_bench/pdf_files/intro-linux.pdf"),
-             Path("pdf_bench/pdf_files/pdf_with_svg_image.pdf")]
+    files = [
+        Path("pdf_bench/pdf_files/sample-small-text-only.pdf"),
+        Path("pdf_bench/pdf_files/intro-linux.pdf"),
+        Path("pdf_bench/pdf_files/pdf_with_svg_image.pdf"),
+    ]
     amount = 5
     res = {}
     for file in files:
         try:
-            pdfplumber_speed = (check_speed_pdfplumber(amount, file).total_seconds() / amount)
+            pdfplumber_speed = (
+                check_speed_pdfplumber(amount, file).total_seconds() / amount
+            )
         except Exception:
             pdfplumber_speed = "Error"
         try:
-            tika_speed = (check_speed_tika(amount, file).total_seconds() / amount)
+            tika_speed = check_speed_tika(amount, file).total_seconds() / amount
         except Exception:
             tika_speed = "Error"
         try:
-            pypdf_speed = (check_speed_pypdf(amount, file).total_seconds() / amount)
+            pypdf_speed = check_speed_pypdf(amount, file).total_seconds() / amount
         except Exception:
             pypdf_speed = "Error"
         try:
-            pdfminer_speed = (check_speed_pdfminer(amount, file).total_seconds() / amount)
+            pdfminer_speed = check_speed_pdfminer(amount, file).total_seconds() / amount
         except Exception:
             pdfminer_speed = "Error"
         try:
-            pdftotext_speed = (check_speed_pdftotext(amount, file).total_seconds() / amount)
+            pdftotext_speed = (
+                check_speed_pdftotext(amount, file).total_seconds() / amount
+            )
         except Exception:
             pdftotext_speed = "Error"
 

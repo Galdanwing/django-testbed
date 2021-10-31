@@ -7,37 +7,33 @@ import django.db.models.manager
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('weirdFilterOrder', '0002_examplemodel_testapp_exa_attribu_bbbd02_idx'),
+        ("weirdFilterOrder", "0002_examplemodel_testapp_exa_attribu_bbbd02_idx")
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='examplemodel',
+            name="examplemodel",
             managers=[
-                ('alphabetical_order_objects', django.db.models.manager.Manager()),
+                ("alphabetical_order_objects", django.db.models.manager.Manager())
             ],
         ),
         migrations.RemoveIndex(
-            model_name='examplemodel',
-            name='testApp_exa_attribu_bbbd02_idx',
+            model_name="examplemodel", name="testApp_exa_attribu_bbbd02_idx"
         ),
         migrations.AlterField(
-            model_name='examplemodel',
-            name='attribute_a',
-            field=models.BooleanField(),
+            model_name="examplemodel", name="attribute_a", field=models.BooleanField()
         ),
         migrations.AlterField(
-            model_name='examplemodel',
-            name='attribute_b',
-            field=models.BooleanField(),
+            model_name="examplemodel", name="attribute_b", field=models.BooleanField()
         ),
         migrations.AlterField(
-            model_name='examplemodel',
-            name='attribute_c',
-            field=models.BooleanField(),
+            model_name="examplemodel", name="attribute_c", field=models.BooleanField()
         ),
         migrations.AddIndex(
-            model_name='examplemodel',
-            index=models.Index(fields=['attribute_a', 'attribute_b', 'attribute_c'], name='weirdFilter_attribu_d8daf9_idx'),
+            model_name="examplemodel",
+            index=models.Index(
+                fields=["attribute_a", "attribute_b", "attribute_c"],
+                name="weirdFilter_attribu_d8daf9_idx",
+            ),
         ),
     ]
