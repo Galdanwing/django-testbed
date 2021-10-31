@@ -24,6 +24,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
+        sudo apt install build-essential libpoppler-cpp-dev pkg-config python3-dev
         poetry install
     - name: Run Tests
       run: |
