@@ -1,6 +1,5 @@
 import pdfplumber
 import pdftotext
-
 from PyPDF2 import PdfFileReader
 from pdfminer.high_level import extract_text
 from tika import parser
