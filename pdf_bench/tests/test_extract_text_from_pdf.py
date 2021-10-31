@@ -17,12 +17,16 @@ def test_extract_text_with_pdfplumber():
 
 
 def test_extract_text_with_pdfminer():
-    with open("pdf_bench/pdf_files/sample-small-text-only.pdf", 'rb') as pdf:
+    with open("pdf_bench/pdf_files/sample-small-text-only.pdf", "rb") as pdf:
         assert extract_text(pdf).strip().startswith("A Simple PDF File")
 
 
 def test_extract_text_with_tika():
-    assert parser.from_file("pdf_bench/pdf_files/sample-small-text-only.pdf")["content"].strip().startswith("A Simple PDF File")
+    assert (
+        parser.from_file("pdf_bench/pdf_files/sample-small-text-only.pdf")["content"]
+        .strip()
+        .startswith("A Simple PDF File")
+    )
 
 
 def test_extract_text_with_pikepdf():
@@ -32,12 +36,12 @@ def test_extract_text_with_pikepdf():
 
 
 def test_extract_text_with_pdftotext():
-    with open("pdf_bench/pdf_files/sample-small-text-only.pdf", 'rb') as pdf:
+    with open("pdf_bench/pdf_files/sample-small-text-only.pdf", "rb") as pdf:
         assert pdftotext.PDF(pdf)[0].strip().startswith("A Simple PDF File")
+
 
 # @pytest.mark.skip(reason="Test is broken on CI")
 def test_extract_text_with_pypdf2():
     # The text gathered from this pdf does not include the "A" at the start.
     pdf = PdfFileReader("pdf_bench/pdf_files/sample-small-text-only.pdf")
-    assert pdf.getPage(1).extractText().strip().startswith(
-        "Simple PDF File")
+    assert pdf.getPage(1).extractText().strip().startswith("Simple PDF File")
