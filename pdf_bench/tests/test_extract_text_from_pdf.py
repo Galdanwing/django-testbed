@@ -35,7 +35,7 @@ def test_extract_text_with_pdftotext():
     with open("pdf_bench/pdf_files/sample-small-text-only.pdf", 'rb') as pdf:
         assert pdftotext.PDF(pdf)[0].strip().startswith("A Simple PDF File")
 
-@pytest.mark.skip(reason="Test is broken on CI")
+# @pytest.mark.skip(reason="Test is broken on CI")
 def test_extract_text_with_pypdf2():
     # The text gathered from this pdf does not include the "A" at the start.
     pdf = PdfFileReader("pdf_bench/pdf_files/sample-small-text-only.pdf")
