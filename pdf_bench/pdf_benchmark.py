@@ -1,14 +1,11 @@
 from pathlib import Path
 
 import pdfplumber
+import pdftotext
 from PyPDF2 import PdfFileReader
-from PyPDF2.utils import PdfReadError
 from django.utils.timezone import now
 from pdfminer.high_level import extract_text
 from tika import parser
-import pdftotext
-
-from timeit import timeit
 
 
 def check_correctness_of_results():
@@ -81,9 +78,7 @@ def check_speed_of_extracting_all_text():
     res = {}
     for file in files:
         try:
-            pdfplumber_speed = (
-                check_speed_pdfplumber(amount, file).total_seconds() / amount
-            )
+            pdfplumber_speed = check_speed_pdfplumber(amount, file).total_seconds() / amount
         except Exception:
             pdfplumber_speed = "Error"
         try:
@@ -99,9 +94,7 @@ def check_speed_of_extracting_all_text():
         except Exception:
             pdfminer_speed = "Error"
         try:
-            pdftotext_speed = (
-                check_speed_pdftotext(amount, file).total_seconds() / amount
-            )
+            pdftotext_speed = check_speed_pdftotext(amount, file).total_seconds() / amount
         except Exception:
             pdftotext_speed = "Error"
 

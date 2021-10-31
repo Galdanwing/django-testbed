@@ -1,14 +1,9 @@
-import sys
-
-import pdftotext
-import pytest
 import pdfplumber
-import os
-import tika
+import pdftotext
+
+from PyPDF2 import PdfFileReader
 from pdfminer.high_level import extract_text
 from tika import parser
-import pikepdf
-from PyPDF2 import PdfFileReader
 
 
 def test_extract_text_with_pdfplumber():

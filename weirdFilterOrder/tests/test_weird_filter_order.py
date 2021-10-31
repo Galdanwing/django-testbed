@@ -1,12 +1,8 @@
-from django.test import TestCase
 from weirdFilterOrder.models import ExampleModel
-import pytest
 
 
 def test_query_output_default_manager():
-    query = ExampleModel.objects.filter(
-        attribute_c=True, attribute_b=True, attribute_a=True
-    ).query
+    query = ExampleModel.objects.filter(attribute_c=True, attribute_b=True, attribute_a=True).query
     expected_output = (
         'SELECT "weirdFilterOrder_examplemodel"."id",'
         ' "weirdFilterOrder_examplemodel"."attribute_a",'

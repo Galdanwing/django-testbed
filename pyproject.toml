@@ -28,3 +28,12 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "djangoProject.settings"
+
+[tool.black]
+line-length=120
+
+[tool.flake8]
+ignore =  "E203, E266, E501, W503, F403, F401"
+max-line-length = 120
+max-complexity = 18
+select = "B,C,E,F,W,T4,B9"
