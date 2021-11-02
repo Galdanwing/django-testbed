@@ -13,6 +13,11 @@ pikepdf = "^3.2.0"
 "pdfminer.six" = "20200517"
 pdftotext = "^2.2.1"
 PyPDF2 = "^1.26.0"
+PyMuPDF = "^1.19.1"
+seaborn = "^0.11.2"
+
+[tool.poetry.scripts]
+benchmark = "pdf_bench.pdf_benchmark:generate_benchmark"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -31,9 +36,3 @@ DJANGO_SETTINGS_MODULE = "djangoProject.settings"
 
 [tool.black]
 line-length=120
-
-[tool.flake8]
-ignore =  "E203, E266, E501, W503, F403, F401"
-max-line-length = 120
-max-complexity = 18
-select = "B,C,E,F,W,T4,B9"

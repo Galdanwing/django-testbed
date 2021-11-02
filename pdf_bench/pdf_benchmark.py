@@ -1,11 +1,18 @@
+import argparse
+from datetime import datetime
 from pathlib import Path
 
+import fitz
 import pdfplumber
 import pdftotext
 from PyPDF2 import PdfFileReader
-from django.utils.timezone import now
 from pdfminer.high_level import extract_text
+from rich import print
 from tika import parser
+
+
+def now():
+    return datetime.now()
 
 
 def check_correctness_of_results():
@@ -68,19 +75,29 @@ def check_speed_pdftotext(amount: int, file: Path):
     return now() - start_time
 
 
+def check_speed_mupdf(amount: int, file: Path):
+    print(Path.cwd())
+    start_time = datetime.now()
+    for i in range(0, amount):
+        with fitz.open(file) as doc:
+            for page in doc:
+                _ = page.get_text("text")
+    return now() - start_time
+
+
 def check_speed_of_extracting_all_text():
     files = [
-        Path("pdf_bench/pdf_files/sample-small-text-only.pdf"),
-        Path("pdf_bench/pdf_files/intro-linux.pdf"),
-        Path("pdf_bench/pdf_files/pdf_with_svg_image.pdf"),
+        Path("pdf_files/sample-small-text-only.pdf"),
+        Path("pdf_files/intro-linux.pdf"),
+        Path("pdf_files/pdf_with_svg_image.pdf"),
     ]
-    amount = 5
+    amount = 1
     res = {}
-    for file in files:
-        try:
-            pdfplumber_speed = check_speed_pdfplumber(amount, file).total_seconds() / amount
-        except Exception:
-            pdfplumber_speed = "Error"
+    for i, file in enumerate(files):
+        # try:
+        pdfplumber_speed = check_speed_pdfplumber(amount, file).total_seconds() / amount
+        # except Exception:
+        #     pdfplumber_speed = "Error"
         try:
             tika_speed = check_speed_tika(amount, file).total_seconds() / amount
         except Exception:
@@ -97,6 +114,10 @@ def check_speed_of_extracting_all_text():
             pdftotext_speed = check_speed_pdftotext(amount, file).total_seconds() / amount
         except Exception:
             pdftotext_speed = "Error"
+        try:
+            mupdf_speed = check_speed_mupdf(amount, file).total_seconds() / amount
+        except Exception:
+            mupdf_speed = "Error"
 
         res[file.stem] = {
             "pdfminer": pdfminer_speed,
@@ -104,7 +125,9 @@ def check_speed_of_extracting_all_text():
             "pypdf": pypdf_speed,
             "tika": tika_speed,
             "pdftotext": pdftotext_speed,
+            "mupdf_speed": mupdf_speed,
         }
+        print(f"Current iteration counter {i}, current file {file=} current result {res}")
     return res
 
 
