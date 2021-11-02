@@ -16,6 +16,7 @@ from tika import parser
 def now():
     return datetime.now()
 
+
 def check_correctness_of_results():
     """
     Check accuracy of pdf libraries through several operations
@@ -140,8 +141,7 @@ def check_speed_of_extracting_all_text(amount: int = 1):
         overall_speed[f"{file.stem}"] = speed
         overall_memory_usage[f"{file.stem}"] = memory_usage
 
-        print(
-            f"Current iteration counter {i}, current file {file=} current file {speed=} current_file {memory_usage=}")
+        print(f"Current iteration counter {i}, current file {file=} current file {speed=} current_file {memory_usage=}")
 
     return DataFrame.from_dict(overall_speed), DataFrame.from_dict(overall_memory_usage)
 
