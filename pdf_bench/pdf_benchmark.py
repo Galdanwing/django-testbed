@@ -16,7 +16,6 @@ from tika import parser
 def now():
     return datetime.now()
 
-
 def check_correctness_of_results():
     """
     Check accuracy of pdf libraries through several operations
