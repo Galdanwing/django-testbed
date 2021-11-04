@@ -19,8 +19,8 @@ def test_extract_text_with_pdfminer():
 def test_extract_text_with_tika():
     assert (
         parser.from_file("pdf_bench/pdf_files/sample-small-text-only.pdf")["content"]
-            .strip()
-            .startswith("A Simple PDF File")
+        .strip()
+        .startswith("A Simple PDF File")
     )
 
 
